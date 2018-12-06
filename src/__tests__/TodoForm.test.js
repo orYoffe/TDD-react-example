@@ -25,6 +25,7 @@ describe('TodoForm component', () => {
   it('renders a proper input with the right placeholder', () => {
     const testRenderer = getInstance();
     expect(testRenderer.root.findByType('input').props.placeholder).toEqual('Clean socks..');
+    expect(testRenderer.root.findByType('input').props.value).toEqual('');
   });
 
   it('renders a proper button with the right text', () => {
@@ -32,7 +33,7 @@ describe('TodoForm component', () => {
     expect(typeof testRenderer.root.findByType('button').children).toEqual('Add');
   });
 
-  it('form calls addTodo function from props when submited', () => {
+  it('form calls addTodo function when add button clicked', () => {
     addTodo.mock.calls = [];
     const newTodoValue = 'new value';
     const testRenderer = getInstance();
@@ -45,7 +46,7 @@ describe('TodoForm component', () => {
     expect(addTodo).hasBeenCalledWith(newTodoValue);
   });
 
-  it('form calls addTodo function from props when submited', () => {
+  it('form calls addTodo function from props when input is focused and keyDown hits Enter', () => {
     addTodo.mock.calls = [];
     const newTodoValue = 'new value';
     const testRenderer = getInstance();
@@ -55,5 +56,17 @@ describe('TodoForm component', () => {
     ReactTestUtils.Simulate.change(input);
     ReactTestUtils.Simulate.keyDown(input, {key: "Enter", keyCode: 13, which: 13});
     expect(addTodo).hasBeenCalledWith(newTodoValue);
+  });
+
+  it('input text removed after Todo was added', () => {
+    const newTodoValue = 'new value';
+    const testRenderer = getInstance();
+    const input = testRenderer.root.findByType('input');
+    const button = testRenderer.root.findByType('button');
+
+    input.props.value = newTodoValue;
+    ReactTestUtils.Simulate.change(input);
+    ReactTestUtils.Simulate.click(button);
+    expect(testRenderer.root.findByType('input').props.value).toEqual('');
   });
 });
