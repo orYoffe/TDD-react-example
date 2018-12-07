@@ -6,6 +6,6 @@ describe('Header component', () => {
   it('renders the proper title', () => {
     const testRenderer = TestRenderer.create(<Header />);
 
-    expect(testRenderer.root.findByType('h1').children).toEqual('Typescript TDD TODO Example App');
+    expect(testRenderer.root.findByType('h1').children).toEqual(['Typescript TDD TODO Example App']);
   });
 });

@@ -3,8 +3,9 @@ import  React, { Component } from 'react';
 class Header extends Component {
   render() {
     return (
-      <div className="Header">
-      </div>
+      <h1 className="Header">
+        Typescript TDD TODO Example App
+      </h1>
     );
   }
 }

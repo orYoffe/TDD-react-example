@@ -1,7 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import ReactTestUtils from 'react-dom/test-utils';
-
+import { shallow } from 'enzyme';
 import TodoItem from '../TodoItem';
 
 const id = '123';
@@ -16,18 +15,19 @@ const getInstance = () => {
 describe('TodoItem component', () => {
   it('renders the proper title', () => {
     const testRenderer = getInstance();
-    expect(testRenderer.root.findByType('h4').children).toEqual(title);
+    expect(testRenderer.root.findByType('h4').children).toEqual([title]);
   });
 
   it('renders the remove todo button with the proper text', () => {
     const testRenderer = getInstance();
-    expect(testRenderer.root.findByType('button').children).toEqual('✅');
+    expect(testRenderer.root.findByType('button').children).toEqual(['✅']);
   });
 
   it('the remove todo button should call the removeTodo callback with the id', () => {
     removeTodo.mock.calls = [];
-    const testRenderer = getInstance();
-    ReactTestUtils.Simulate.click(testRenderer.root.findByType('button'));
-    expect(removeTodo).hasBeenCalled();
+    const testRenderer = shallow(<TodoItem title={title} id={id} removeTodo={removeTodo} />);
+    testRenderer.find('button').simulate('click');
+
+    expect(removeTodo).toBeCalled();
   });
 });

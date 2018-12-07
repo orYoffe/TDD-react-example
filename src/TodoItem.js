@@ -1,12 +1,14 @@
-import  React, { Component } from 'react';
+import React from 'react';
 
-class TodoItem extends Component {
-  render() {
-    return (
-      <div className="TodoItem">
-      </div>
-    );
-  }
-}
+const TodoItem = ({
+  title,
+  removeTodo,
+}) => (
+  <div className="TodoItem">
+    <h4>{title}</h4>
+    {/* eslint-disable-next-line */}
+    <button onClick={removeTodo}>✅</button>
+  </div>
+);
 
 export default TodoItem;

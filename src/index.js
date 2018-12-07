@@ -4,8 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const todos = [
+  { id: 1, title: 'my first todo'},
+  { id: 2, title: 'my second todo'},
+];
+
 ReactDOM.render(
-  <App />,
+  <App todos={todos} />,
   document.getElementById('root')
 );
 
